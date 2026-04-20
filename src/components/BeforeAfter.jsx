@@ -3,28 +3,16 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const results = [
   {
-    before: '/dental-before-1.png',
-    after: '/dental-after-1.png',
+    before: '/dental-before-3.png',
+    after: '/dental-after-4.png',
     title: 'Blanchiment Dentaire',
     description: 'Résultat après 2 séances'
   },
   {
-    before: '/dental-before-2.png',
-    after: '/dental-after-2.png',
+    before: '/dental-before-after-1.png',
+    after: '/dental-before-after-1.png',
     title: 'Alignement Dentaire',
     description: 'Traitement orthodontique'
-  },
-  {
-    before: '/dental-before-3.png',
-    after: '/dental-after-3.png',
-    title: 'Facettes Dentaires',
-    description: 'Transformation complète'
-  },
-  {
-    before: '/dental-before-4.png',
-    after: '/dental-after-4.png',
-    title: 'Restauration Esthétique',
-    description: 'Composite et céramique'
   }
 ];
 

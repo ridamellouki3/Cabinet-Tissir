@@ -23,10 +23,6 @@ export default function Navbar() {
           <div className="navbar-logo-icon">
             <img src="/dental-logo.png" alt="Tissir Dent Logo" />
           </div>
-          <div className="navbar-logo-text">
-            <h1>Tissir Dent</h1>
-            <p>Dr Tissir Khawla · Cabinet Dentaire</p>
-          </div>
         </a>
 
         <div className={`navbar-links ${menuOpen ? 'open' : ''}`}>

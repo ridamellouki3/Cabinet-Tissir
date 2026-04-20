@@ -10,15 +10,11 @@ export default function Footer() {
       <div className="container">
         <div className="footer-inner">
           <div className="footer-brand">
-            <h2>
-              <svg width="32" height="32" viewBox="0 0 64 64" fill="none">
-                <path d="M32 8C28 8 24 12 22 18C20 24 20 32 24 40C27 46 30 52 32 56C34 52 37 46 40 40C44 32 44 24 42 18C40 12 36 8 32 8Z" 
-                      fill="rgba(189,219,209,0.3)" stroke="#BDDBD1" strokeWidth="2"/>
-              </svg>
-              Tissir Dent
+            <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <img src="/dental-logo.png" alt="Tissir Dent Logo" style={{ height: '80px', width: 'auto' }} />
             </h2>
             <p>
-              Cabinet dentaire moderne au cœur d'Al Houda, Agadir. 
+              Cabinet dentaire moderne au cœur d'Al Houda, Agadir.
               Des soins de qualité dans un environnement apaisant.
             </p>
           </div>

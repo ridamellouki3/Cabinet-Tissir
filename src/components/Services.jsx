@@ -39,22 +39,25 @@ export default function Services() {
   const [isPaused, setIsPaused] = useState(false);
   const trackRef = useRef(null);
 
+  // Show 3 at a time, max index is length - 3
+  const maxIndex = services.length > 3 ? services.length - 3 : 0;
+
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setCurrent(i => (i + 1) % (services.length - 2)); 
+      setCurrent(i => i >= maxIndex ? 0 : i + 1);
     }, 4000);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, maxIndex]);
 
   const prev = () => {
-    setCurrent(i => i === 0 ? services.length - 3 : i - 1);
+    setCurrent(i => i <= 0 ? maxIndex : i - 1);
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), 8000);
   };
 
   const next = () => {
-    setCurrent(i => (i + 1) % (services.length - 2));
+    setCurrent(i => i >= maxIndex ? 0 : i + 1);
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), 8000);
   };
@@ -62,7 +65,7 @@ export default function Services() {
   return (
     <section className="services" id="services">
       <div className="container">
-        <div className="services-header">
+        <div className="services-header centered">
           <span className="section-label">Nos Spécialités</span>
           <h2 className="section-title">Services Dentaires</h2>
           <p className="section-subtitle">
@@ -78,17 +81,17 @@ export default function Services() {
           </div>
         </div>
 
-        <div 
+        <div
           className="services-slider"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className="services-slider-container">
-            <div 
-              className="services-slider-track" 
+            <div
+              className="services-slider-track"
               ref={trackRef}
-              style={{ 
-                transform: `translateX(calc(-${current * (100 / 3)}%))` 
+              style={{
+                transform: `translateX(calc(-${current * (100 / 3)}%))`
               }}
             >
               {services.map((service, index) => (
@@ -99,8 +102,8 @@ export default function Services() {
                   </div>
                   <div className="service-slide-content">
                     <div className="service-slide-glass">
-                        <h3>{service.title}</h3>
-                        <p>{service.description}</p>
+                      <h3>{service.title}</h3>
+                      <p>{service.description}</p>
                     </div>
                   </div>
                 </div>
@@ -110,7 +113,7 @@ export default function Services() {
         </div>
 
         <div className="services-dots">
-          {services.slice(0, services.length - 2).map((_, index) => (
+          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
               key={index}
               className={`dot ${index === current ? 'active' : ''}`}
