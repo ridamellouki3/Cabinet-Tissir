@@ -8,7 +8,7 @@ export default function About() {
       <div className="container">
         <div className="about-grid">
           <div className="about-image">
-            <img src="/doctor-khawla.jpg" alt="Dr. Tissir Khaoula" loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}doctor-khawla.jpg`} alt="Dr. Tissir Khaoula" loading="lazy" />
           </div>
 
           <div className="about-content">

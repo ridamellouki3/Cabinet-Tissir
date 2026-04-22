@@ -3,13 +3,13 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 const results = [
-  { image: '/before-after1.jpeg', title: 'Cas Clinique 1', description: 'Restauration complète du sourire' },
-  { image: '/before-after2.jpeg', title: 'Cas Clinique 2', description: 'Restauration esthétique' },
-  { image: '/before-after3.jpeg', title: 'Cas Clinique 3', description: 'Traitement orthodontique et facettes' },
-  { image: '/before-after4.jpeg', title: 'Cas Clinique 4', description: 'Réhabilitation dentaire' },
-  { image: '/before-after5.jpeg', title: 'Cas Clinique 5', description: 'Amélioration de l\'alignement' },
-  { image: '/before-after6.jpeg', title: 'Cas Clinique 6', description: 'Blanchiment et corrections' },
-  { image: '/before-after7.jpeg', title: 'Cas Clinique 7', description: 'Sourire naturel retrouvé' }
+  { image: `${import.meta.env.BASE_URL}before-after1.jpeg`, title: 'Cas Clinique 1', description: 'Restauration complète du sourire' },
+  { image: `${import.meta.env.BASE_URL}before-after2.jpeg`, title: 'Cas Clinique 2', description: 'Restauration esthétique' },
+  { image: `${import.meta.env.BASE_URL}before-after3.jpeg`, title: 'Cas Clinique 3', description: 'Traitement orthodontique et facettes' },
+  { image: `${import.meta.env.BASE_URL}before-after4.jpeg`, title: 'Cas Clinique 4', description: 'Réhabilitation dentaire' },
+  { image: `${import.meta.env.BASE_URL}before-after5.jpeg`, title: 'Cas Clinique 5', description: 'Amélioration de l\'alignement' },
+  { image: `${import.meta.env.BASE_URL}before-after6.jpeg`, title: 'Cas Clinique 6', description: 'Blanchiment et corrections' },
+  { image: `${import.meta.env.BASE_URL}before-after7.jpeg`, title: 'Cas Clinique 7', description: 'Sourire naturel retrouvé' }
 ];
 
 export default function BeforeAfter() {

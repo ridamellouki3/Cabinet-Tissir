@@ -10,7 +10,7 @@ export default function Hero() {
   return (
     <section className="hero" id="hero">
       <div className="hero-bg">
-        <img src="/hero-bg.jpg" alt="Cabinet dentaire moderne" />
+        <img src={`${import.meta.env.BASE_URL}hero-bg.jpg`} alt="Cabinet dentaire moderne" />
       </div>
 
       <div className="container">

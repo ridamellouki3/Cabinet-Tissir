@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="footer-inner">
           <div className="footer-brand">
             <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', fontSize: '28px', margin: 0, padding: 0 }}>
-              <img src="/dental-logof.png" alt="Logo" style={{ height: '80px', objectFit: 'contain' }} />
+              <img src={`${import.meta.env.BASE_URL}dental-logof.png`} alt="Logo" style={{ height: '80px', objectFit: 'contain' }} />
             </h2>
             <p>{t('footer_desc')}</p>
             <div className="footer-socials" style={{ display: 'flex', gap: '15px', marginTop: '15px' }}>

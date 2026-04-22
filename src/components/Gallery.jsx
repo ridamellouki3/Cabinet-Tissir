@@ -1,18 +1,18 @@
 const galleryImages = [
   {
-    src: "/cabinet-card.jpg",
+    src: `${import.meta.env.BASE_URL}cabinet-card.jpg`,
     alt: "Salle de radiologie et équipement panoramique 3D"
   },
   {
-    src: "/cabinet-cert.jpg",
+    src: `${import.meta.env.BASE_URL}cabinet-cert.jpg`,
     alt: "Consultation et analyse radiologique sur écran"
   },
   {
-    src: "/cabinet-office.jpeg",
+    src: `${import.meta.env.BASE_URL}cabinet-office.jpeg`,
     alt: "Fauteuil dentaire et équipement de pointe"
   },
   {
-    src: "/wall-mirror.jpg",
+    src: `${import.meta.env.BASE_URL}wall-mirror.jpg`,
     alt: "Salle d'attente confortable et chaleureuse"
   }
 ];

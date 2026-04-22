@@ -48,7 +48,7 @@ export default function Urgences() {
 
           <div className="urgences-image">
             <img
-              src="/hero-bg.jpg"
+              src={`${import.meta.env.BASE_URL}hero-bg.jpg`}
               alt="Urgence dentaire"
               loading="lazy"
             />

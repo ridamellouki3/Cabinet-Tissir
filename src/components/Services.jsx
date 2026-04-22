@@ -9,32 +9,32 @@ export default function Services() {
     {
       title: t('serv_card1_title'),
       description: t('serv_card1_desc'),
-      image: '/service-esthetique.png'
+      image: `${import.meta.env.BASE_URL}service-esthetique.png`
     },
     {
       title: t('serv_card2_title'),
       description: t('serv_card2_desc'),
-      image: '/service-preventif.png'
+      image: `${import.meta.env.BASE_URL}service-preventif.png`
     },
     {
       title: t('serv_card3_title'),
       description: t('serv_card3_desc'),
-      image: '/service-conservateur.png'
+      image: `${import.meta.env.BASE_URL}service-conservateur.png`
     },
     {
       title: t('serv_card4_title'),
       description: t('serv_card4_desc'),
-      image: '/service-implant.png'
+      image: `${import.meta.env.BASE_URL}service-implant.png`
     },
     {
       title: t('serv_card5_title'),
       description: t('serv_card5_desc'),
-      image: '/service-orthodontie.png'
+      image: `${import.meta.env.BASE_URL}service-orthodontie.png`
     },
     {
       title: t('serv_card6_title'),
       description: t('serv_card6_desc'),
-      image: '/service-parodontologie.png'
+      image: `${import.meta.env.BASE_URL}service-parodontologie.png`
     }
   ];
 

@@ -23,7 +23,7 @@ export default function Navbar() {
       <div className="container navbar-inner">
         <a href="#" className="navbar-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <div className="navbar-logo-icon">
-            <img src="/dental-logo.png" alt="Tissir Dent Logo" />
+            <img src={`${import.meta.env.BASE_URL}dental-logo.png`} alt="Tissir Dent Logo" />
           </div>
         </a>
 

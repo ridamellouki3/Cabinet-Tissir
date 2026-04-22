@@ -27,14 +27,14 @@ export default function FacialEsthetics() {
       <div className="container">
         <div className="facial-grid">
           <div className="facial-image">
-            <img src="/facial-aesthetics.png" alt="Esthétique du visage" loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}facial-aesthetics.png`} alt="Esthétique du visage" loading="lazy" />
           </div>
 
           <div className="facial-content">
             <span className="section-label">Esthétique du Visage</span>
             <h2 className="section-title" style={{ textAlign: 'left' }}>Traitements Esthétiques</h2>
             <p className="about-text">
-              Au-delà des soins dentaires, nous proposons des traitements d'esthétique médicale 
+              Au-delà des soins dentaires, nous proposons des traitements d'esthétique médicale
               du visage pour sublimer votre beauté naturelle.
             </p>
 
