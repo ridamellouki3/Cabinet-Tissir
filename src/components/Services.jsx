@@ -1,40 +1,43 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const services = [
-  {
-    title: 'Soins Esthétiques',
-    description: 'Blanchiment dentaire, facettes et restaurations esthétiques pour un sourire radieux et confiant.',
-    image: '/service-esthetique.png'
-  },
-  {
-    title: 'Soins Préventifs',
-    description: 'Nettoyage professionnel, détartrage et examens réguliers pour maintenir une santé bucco-dentaire optimale.',
-    image: '/service-preventif.png'
-  },
-  {
-    title: 'Soins Conservateurs',
-    description: 'Traitement des caries, restaurations et soins endodontiques avec les techniques les plus modernes.',
-    image: '/service-conservateur.png'
-  },
-  {
-    title: 'Implantologie',
-    description: 'Solutions permanentes pour dents manquantes. Implants dentaires de haute qualité pour un résultat naturel.',
-    image: '/service-implant.png'
-  },
-  {
-    title: 'Orthodontie',
-    description: 'Correction de la position des dents et des mâchoires pour un sourire parfaitement aligné.',
-    image: '/service-orthodontie.png'
-  },
-  {
-    title: 'Parodontologie',
-    description: 'Traitement des gencives et des tissus de soutien de la dent pour une base solide.',
-    image: '/service-parodontologie.png'
-  }
-];
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Services() {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      title: t('serv_card1_title'),
+      description: t('serv_card1_desc'),
+      image: '/service-esthetique.png'
+    },
+    {
+      title: t('serv_card2_title'),
+      description: t('serv_card2_desc'),
+      image: '/service-preventif.png'
+    },
+    {
+      title: t('serv_card3_title'),
+      description: t('serv_card3_desc'),
+      image: '/service-conservateur.png'
+    },
+    {
+      title: t('serv_card4_title'),
+      description: t('serv_card4_desc'),
+      image: '/service-implant.png'
+    },
+    {
+      title: t('serv_card5_title'),
+      description: t('serv_card5_desc'),
+      image: '/service-orthodontie.png'
+    },
+    {
+      title: t('serv_card6_title'),
+      description: t('serv_card6_desc'),
+      image: '/service-parodontologie.png'
+    }
+  ];
+
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const trackRef = useRef(null);
@@ -66,10 +69,10 @@ export default function Services() {
     <section className="services" id="services">
       <div className="container">
         <div className="services-header centered">
-          <span className="section-label">Nos Spécialités</span>
-          <h2 className="section-title">Services Dentaires</h2>
+          <span className="section-label">{t('serv_badge')}</span>
+          <h2 className="section-title">{t('serv_title')}</h2>
           <p className="section-subtitle">
-            Des soins complets pour toute la famille, avec les équipements les plus modernes
+            {t('serv_desc')}
           </p>
           <div className="services-nav">
             <button onClick={prev} aria-label="Précédent" className="slider-btn">

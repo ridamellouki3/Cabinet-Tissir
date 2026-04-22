@@ -8,7 +8,7 @@ const galleryImages = [
     alt: "Consultation et analyse radiologique sur écran"
   },
   {
-    src: "/cabinet-office.jpg",
+    src: "/cabinet-office.jpeg",
     alt: "Fauteuil dentaire et équipement de pointe"
   },
   {
@@ -17,14 +17,18 @@ const galleryImages = [
   }
 ];
 
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
+
 export default function Gallery() {
+  const { t } = useLanguage();
   return (
     <section className="gallery" id="gallery">
-      <div className="container">
-        <span className="section-label">Au Cœur de Notre Cabinet</span>
-        <h2 className="section-title">Bienvenue chez Tissir Dent</h2>
-        <p className="section-subtitle">
-          Découvrez notre clinique dentaire, nos diplômes, et l'endroit où nous transformons vos sourires.
+      <div className="container" style={{ textAlign: 'center' }}>
+        <span className="section-label" style={{ display: 'inline-block', marginBottom: '10px' }}>{t('gal_badge')}</span>
+        <h2 className="section-title" style={{ fontFamily: 'var(--font-serif)', fontSize: '36px', color: 'var(--dark)' }}>{t('gal_title')}</h2>
+        <p className="section-subtitle" style={{ maxWidth: '600px', margin: '0 auto 40px auto', color: 'var(--text-light)', fontSize: '16px' }}>
+          {t('gal_subtitle')}
         </p>
 
         <div className="gallery-grid">

@@ -1,6 +1,8 @@
 import { Video } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Hero() {
+  const { t } = useLanguage();
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -13,17 +15,16 @@ export default function Hero() {
 
       <div className="container">
         <div className="hero-content">
-          <h1 className="hero-title">Votre Sourire,<br />Notre Priorité</h1>
+          <h1 className="hero-title">{t('hero_title').split(',')[0]},<br />{t('hero_title').split(',')[1] || t('hero_title')}</h1>
           <p className="hero-description">
-            Un cabinet dentaire moderne au cœur d'Al Houda,
-            Agadir. Soins de qualité avec flexibilité et écoute.
+            {t('hero_subtitle')}
           </p>
           <div className="hero-buttons">
             <a href="#rendez-vous" className="btn-primary" onClick={(e) => { e.preventDefault(); scrollTo('rendez-vous'); }}>
-              Prendre Rendez-vous
+              {t('nav_book')}
             </a>
             <a href="#video-consultation" className="btn-secondary" onClick={(e) => { e.preventDefault(); scrollTo('video-consultation'); }}>
-              <Video size={18} /> Consultation Vidéo
+              <Video size={18} /> {t('nav_video')}
             </a>
           </div>
         </div>

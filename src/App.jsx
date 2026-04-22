@@ -13,10 +13,11 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingPhone from './components/FloatingPhone'
 import UrgencePopup from './components/UrgencePopup'
+import { LanguageProvider } from './context/LanguageContext'
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <Navbar />
       <Hero />
       <About />
@@ -31,7 +32,7 @@ function App() {
       <Footer />
       <FloatingPhone />
       <UrgencePopup />
-    </>
+    </LanguageProvider>
   )
 }
 

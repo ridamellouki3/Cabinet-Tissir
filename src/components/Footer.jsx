@@ -1,4 +1,8 @@
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
+
 export default function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   const scrollTo = (id) => {
@@ -10,13 +14,14 @@ export default function Footer() {
       <div className="container">
         <div className="footer-inner">
           <div className="footer-brand">
-            <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <img src="/dental-logo.png" alt="Tissir Dent Logo" style={{ height: '80px', width: 'auto' }} />
+            <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', fontSize: '28px', margin: 0, padding: 0 }}>
+              <img src="/dental-logof.png" alt="Logo" style={{ height: '80px', objectFit: 'contain' }} />
             </h2>
-            <p>
-              Cabinet dentaire moderne au cœur d'Al Houda, Agadir.
-              Des soins de qualité dans un environnement apaisant.
-            </p>
+            <p>{t('footer_desc')}</p>
+            <div className="footer-socials" style={{ display: 'flex', gap: '15px', marginTop: '15px' }}>
+              <a href="#" aria-label="Instagram" style={{ fontWeight: 'bold' }}>Instagram</a>
+              <a href="#" aria-label="Facebook" style={{ fontWeight: 'bold' }}>Facebook</a>
+            </div>
           </div>
 
           <div className="footer-col">
@@ -39,14 +44,20 @@ export default function Footer() {
             <h3>Contact</h3>
             <a href="tel:212663316332">+212 663-316332</a>
             <a href="mailto:contact@tissirdent.ma">contact@tissirdent.ma</a>
-            <a href="#" onClick={(e) => { e.preventDefault(); scrollTo('video-consultation'); }}>Consultation Vidéo</a>
-            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo('contact'); }}>Nous Contacter</a>
+            <div className="footer-col">
+              <h3>{t('footer_hours')}</h3>
+              <div className="footer-hours">
+                <p><span>Lun - Ven:</span> 09:00 - 19:30</p>
+                <p><span>Samedi:</span> 09:00 - 14:00</p>
+                <p className="closed"><span>Dimanche:</span> Fermé</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <p className="footer-bottom">
-          © {currentYear} Cabinet Tissir Dent — Dr. Tissir Khawla. Tous droits réservés.
-        </p>
+        <div className="footer-bottom">
+          <p>&copy; {currentYear} Cabinet Dentaire Tissir. {t('footer_rights')}</p>
+        </div>
       </div>
     </footer>
   );

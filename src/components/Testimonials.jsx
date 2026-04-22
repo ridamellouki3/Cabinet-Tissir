@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const testimonials = [
   {
-    quote: "Dr. Khawla est une professionnelle exceptionnelle. Son cabinet est moderne et l'accueil est chaleureux. Je recommande vivement!",
+    quote: "Dr. Khaoula est une professionnelle exceptionnelle. Son cabinet est moderne et l'accueil est chaleureux. Je recommande vivement!",
     author: "Amina L."
   },
   {
@@ -21,6 +22,7 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
 
   const prev = () => setCurrent(i => i === 0 ? testimonials.length - 1 : i - 1);
@@ -29,8 +31,13 @@ export default function Testimonials() {
   return (
     <section className="testimonials" id="testimonials">
       <div className="container">
-        <span className="section-label">Témoignages</span>
-        <h2 className="section-title">Ce Que Disent Nos Patients</h2>
+        <div className="section-header centered">
+          <span className="section-label">{t('testi_badge')}</span>
+          <h2 className="section-title">{t('testi_title')}</h2>
+          <p className="section-subtitle">
+            {t('testi_subtitle')}
+          </p>
+        </div>
 
         <div className="testimonial-card" key={current}>
           <div className="testimonial-stars">

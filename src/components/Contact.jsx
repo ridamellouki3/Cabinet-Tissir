@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
-import { MapPin, Phone, Mail, Clock, Calendar, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Calendar, ExternalLink, RefreshCw } from 'lucide-react';
 import axios from 'axios';
+import { useLanguage } from '../context/LanguageContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const CABINET_PHONE = "+212 663-316332";
@@ -32,28 +33,53 @@ export default function Contact() {
   const [bookingForm, setBookingForm] = useState({ name: '', phone: '', date: '', day: '', time: '' });
   const [bookingStatus, setBookingStatus] = useState({ type: '', message: '' });
   const [bookingLoading, setBookingLoading] = useState(false);
+  const { t } = useLanguage();
 
   const timeSlots = useMemo(() => generateTimeSlots(bookingForm.day), [bookingForm.day]);
 
   const handleBookingChange = (e) => {
     const { name, value } = e.target;
-    setBookingForm(prev => {
-      const updated = { ...prev, [name]: value };
-      if (name === 'day') updated.time = '';
-      return updated;
-    });
+    
+    if (name === 'date') {
+      const dateObj = new Date(value);
+      const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+      const calculatedDay = dayNames[dateObj.getDay()];
+      
+      if (calculatedDay === 'Dimanche') {
+        setBookingStatus({ type: 'error', message: 'Désolé, nous sommes fermés le Dimanche. Veuillez choisir un autre jour.' });
+        setBookingForm(prev => ({ ...prev, date: value, day: '', time: '' }));
+      } else {
+        setBookingStatus({ type: '', message: '' }); // clear error
+        setBookingForm(prev => ({ ...prev, date: value, day: calculatedDay, time: '' }));
+      }
+    } else {
+      setBookingForm(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     setBookingLoading(true);
     setBookingStatus({ type: '', message: '' });
+    
     try {
-      const res = await axios.post(`${API_URL}/api/appointments`, bookingForm);
-      setBookingStatus({ type: 'success', message: res.data.message || 'Rendez-vous réservé!' });
+      // Create the text message to send to the clinic via WhatsApp
+      const dentalMsg = `Bonjour Cabinet Tissir Dent,\n\nJe souhaite réserver une consultation :\n👤 Patient : ${bookingForm.name}\n📞 Contact : ${bookingForm.phone}\n📅 Date : ${bookingForm.date} (${bookingForm.day})\n⏰ Heure : ${bookingForm.time}\n\nMerci de me confirmer la disponibilité.`;
+      const whatsappUrl = `https://wa.me/${CABINET_PHONE_RAW}?text=${encodeURIComponent(dentalMsg)}`;
+
+      // Message displayed to the user
+      const userMsg = `✅ Merci ${bookingForm.name} ! Votre demande est enregistrée. Cliquez sur le bouton WhatsApp qui s'est ouvert pour nous finaliser l'envoi.`;
+
+      // Display success message to the user
+      setBookingStatus({ type: 'success', message: userMsg });
+      
+      // Open WhatsApp for the dental clinic
+      window.open(whatsappUrl, '_blank');
+
+      // Clear the form
       setBookingForm({ name: '', phone: '', date: '', day: '', time: '' });
     } catch (err) {
-      setBookingStatus({ type: 'error', message: 'Erreur lors de la réservation.' });
+      setBookingStatus({ type: 'error', message: 'Erreur lors de la préparation de la réservation.' });
     } finally {
       setBookingLoading(false);
     }
@@ -127,7 +153,7 @@ export default function Contact() {
               <div className="contact-item-expert">
                 <div className="expert-icon-box"><Phone size={26} /></div>
                 <div className="expert-info-text">
-                  <h4>Téléphone & WhatsApp</h4>
+                  <h4>{t('contact_phone_lbl')}</h4>
                   <p>Notre secrétariat est à votre écoute au :</p>
                   <a href={`tel:${CABINET_PHONE_RAW}`} style={{ fontWeight: '700', fontSize: '18px', color: 'var(--primary)' }}>
                     {CABINET_PHONE}
@@ -138,7 +164,7 @@ export default function Contact() {
               <div className="contact-item-expert">
                 <div className="expert-icon-box"><Mail size={26} /></div>
                 <div className="expert-info-text">
-                  <h4>Support Email</h4>
+                  <h4>{t('contact_email_lbl')}</h4>
                   <p>Pour vos dossiers administratifs :</p>
                   <a href="mailto:contact@tissirdent.ma" style={{ fontWeight: '500' }}>
                     contact@tissirdent.ma
@@ -150,7 +176,7 @@ export default function Contact() {
             <div className="hours-expert-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '25px' }}>
                 <Clock className="text-primary" size={28} />
-                <h3 style={{ margin: 0, border: 'none', padding: 0 }}>Heures d'Ouverture</h3>
+                <h3 style={{ margin: 0, border: 'none', padding: 0 }}>{t('contact_open_lbl')}</h3>
               </div>
               <ul className="hours-list-expert">
                 <li className="hour-row">
@@ -192,23 +218,25 @@ export default function Contact() {
       {/* ─── Re-integrated Appointment Form (Centered Above) ─── */}
       <div className="container" style={{ marginTop: '100px', paddingTop: '100px', borderTop: '1px solid var(--border)' }}>
         <div id="rendez-vous" className="booking-section">
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <span className="section-label">Réservation</span>
-            <h2 className="section-title">Planifiez Votre Visite</h2>
-            <p className="section-subtitle">
-              Réservez votre créneau en quelques clics pour un soin dentaire d'exception.
-            </p>
+          <div className="container">
+            <div className="section-header centered">
+              <span className="section-label">{t('contact_badge')}</span>
+              <h2 className="section-title">{t('contact_title')}</h2>
+              <p className="section-subtitle">
+                {t('contact_subtitle')}
+              </p>
+            </div>
           </div>
           <div className="booking-form-card" style={{ maxWidth: '900px', margin: '0 auto' }}>
             <form onSubmit={handleBookingSubmit}>
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="bk-name">Nom Complet <span>*</span></label>
-                  <input type="text" id="bk-name" name="name" value={bookingForm.name} onChange={handleBookingChange} placeholder="Votre nom complet" required />
+                  <label htmlFor="bk-name">{t('contact_book_name')} <span>*</span></label>
+                  <input type="text" id="bk-name" name="name" value={bookingForm.name} onChange={handleBookingChange} placeholder="Votre nom" required />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="bk-phone">Téléphone <span>*</span></label>
-                  <input type="tel" id="bk-phone" name="phone" value={bookingForm.phone} onChange={handleBookingChange} placeholder={CABINET_PHONE} required />
+                  <label htmlFor="bk-phone">{t('contact_book_phone')} <span>*</span></label>
+                  <input type="tel" id="bk-phone" name="phone" value={bookingForm.phone} onChange={handleBookingChange} placeholder="+212 XXX XXX XXX" required />
                 </div>
               </div>
               <div className="form-row" style={{ marginBottom: '20px' }}>
@@ -217,11 +245,13 @@ export default function Contact() {
                   <input type="date" id="bk-date" name="date" value={bookingForm.date} onChange={handleBookingChange} required />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="bk-day">Jour <span>*</span></label>
-                  <select id="bk-day" name="day" value={bookingForm.day} onChange={handleBookingChange} required>
-                    <option value="" disabled>Choisir un jour</option>
-                    {days.map(day => (<option key={day} value={day}>{day}</option>))}
-                  </select>
+                  <label>Jour détecté</label>
+                  <input 
+                    type="text" 
+                    value={bookingForm.day || 'Le jour s\'affichera ici'} 
+                    disabled 
+                    style={{ background: '#f8fafc', color: bookingForm.day ? 'var(--dark)' : '#94A3B8', fontWeight: bookingForm.day ? '600' : 'normal' }}
+                  />
                 </div>
               </div>
               <div className="form-row">
@@ -233,8 +263,14 @@ export default function Contact() {
                   </select>
                 </div>
               </div>
-              <button type="submit" className="btn-submit" disabled={bookingLoading}>
-                {bookingLoading ? 'Envoi...' : 'Confirmer le Rendez-vous'}
+              <button type="submit" className="btn-submit" disabled={bookingLoading} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                {bookingLoading ? (
+                  <RefreshCw className="animate-spin" size={20} />
+                ) : (
+                  <>
+                    <Calendar size={20} /> {t('contact_book_btn')}
+                  </>
+                )}
               </button>
               {bookingStatus.message && (
                 <div className={`form-message ${bookingStatus.type}`}>
