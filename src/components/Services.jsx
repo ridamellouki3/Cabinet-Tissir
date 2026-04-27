@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
+const VISIBLE = 3;   // cards visible on desktop
+const GAP = 24;      // must match CSS gap on .services-slider-track
+
 export default function Services() {
   const { t } = useLanguage();
 
@@ -35,34 +38,69 @@ export default function Services() {
       title: t('serv_card6_title'),
       description: t('serv_card6_desc'),
       image: `${import.meta.env.BASE_URL}service-parodontologie.png`
-    }
+    },
+    {
+      title: t('serv_card7_title'),
+      description: t('serv_card7_desc'),
+      image: `${import.meta.env.BASE_URL}service-radiologie.png`
+    },
   ];
 
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const trackRef = useRef(null);
+  const [visibleCount, setVisibleCount] = useState(VISIBLE);
+  const sliderRef = useRef(null);
 
-  // Show 3 at a time, max index is length - 3
-  const maxIndex = services.length > 3 ? services.length - 3 : 0;
+  // Responsive: determine how many cards are visible
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w <= 768) setVisibleCount(1);
+      else if (w <= 992) setVisibleCount(2);
+      else setVisibleCount(3);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
+  const maxIndex = Math.max(0, services.length - visibleCount);
+
+  // Auto-advance
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setCurrent(i => i >= maxIndex ? 0 : i + 1);
+      setCurrent(i => (i >= maxIndex ? 0 : i + 1));
     }, 4000);
     return () => clearInterval(interval);
   }, [isPaused, maxIndex]);
 
+  // Keep current in bounds if visibleCount changes
+  useEffect(() => {
+    setCurrent(i => Math.min(i, maxIndex));
+  }, [maxIndex]);
+
   const prev = () => {
-    setCurrent(i => i <= 0 ? maxIndex : i - 1);
+    setCurrent(i => (i <= 0 ? maxIndex : i - 1));
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), 8000);
   };
 
   const next = () => {
-    setCurrent(i => i >= maxIndex ? 0 : i + 1);
+    setCurrent(i => (i >= maxIndex ? 0 : i + 1));
     setIsPaused(true);
     setTimeout(() => setIsPaused(false), 8000);
+  };
+
+  // Correct transform: each step shifts by (cardWidth + gap)
+  // cardWidth = (100% - (visibleCount-1)*gap) / visibleCount
+  // step = cardWidth + gap = 100%/visibleCount
+  const getTranslate = () => {
+    if (!sliderRef.current) return `translateX(0)`;
+    const containerWidth = sliderRef.current.offsetWidth;
+    const cardWidth = (containerWidth - GAP * (visibleCount - 1)) / visibleCount;
+    const step = cardWidth + GAP;
+    return `translateX(-${current * step}px)`;
   };
 
   return (
@@ -88,14 +126,12 @@ export default function Services() {
           className="services-slider"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
+          ref={sliderRef}
         >
           <div className="services-slider-container">
             <div
               className="services-slider-track"
-              ref={trackRef}
-              style={{
-                transform: `translateX(calc(-${current * (100 / 3)}%))`
-              }}
+              style={{ transform: getTranslate() }}
             >
               {services.map((service, index) => (
                 <div className="service-slide" key={index}>

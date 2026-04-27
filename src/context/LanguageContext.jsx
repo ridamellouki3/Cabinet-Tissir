@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
 
 const translations = {
   fr: {
@@ -41,6 +41,8 @@ const translations = {
     serv_card5_desc: 'Traitements spécialisés des gencives pour prévenir et soigner le déchaussement dentaire.',
     serv_card6_title: 'Endodontie',
     serv_card6_desc: 'Traitement canalaire de haute précision pour sauver vos dents naturelles.',
+    serv_card7_title: 'Radiologie Dentaire',
+    serv_card7_desc: 'Radiographies numériques et panoramiques pour un diagnostic précis et rapide avec un minimum de rayonnement.',
     
     // Video Consultation
     vc_badge: 'Innovation',
@@ -95,129 +97,18 @@ const translations = {
     footer_links: 'Liens Rapides',
     footer_hours: 'Heures d\'Ouverture',
     footer_rights: 'Tous droits réservés.',
-  },
-  ar: {
-    // Navigation
-    nav_about: 'معلومات عنا',
-    nav_services: 'خدماتنا',
-    nav_video: 'استشارة فيديو',
-    nav_testimonials: 'آراء العملاء',
-    nav_contact: 'اتصل بنا',
-    nav_book: 'احجز موعداً',
-    
-    // Hero
-    hero_badge: 'مرحباً بكم في عيادة تيسير لطب الأسنان',
-    hero_title: 'ابتسامتك، أولويتنا',
-    hero_subtitle: 'عيادة أسنان حديثة في قلب الهدى، أكادير. رعاية عالية الجودة بمرونة واهتمام.',
-    
-    // About
-    about_label: 'معلومات عنا',
-    about_name: 'د. تيسير خولة',
-    about_p1: 'طبيبة أسنان شغوفة، أضع العلاقة الإنسانية في صميم عملي. هدفي هو تقديم رعاية أسنان عالية الجودة في بيئة حديثة ومريحة.',
-    about_p2: 'تقع عيادتنا في حي الهدى بأكادير، وتجمع بين الخبرة المهنية والمرونة الاستثنائية للتكيف مع جدولك الزمني.',
-    about_feat1_title: 'خبرة',
-    about_feat1_desc: 'رعاية حديثة وأحدث البروتوكولات',
-    about_feat2_title: 'استماع',
-    about_feat2_desc: 'نهج إنساني وشخصي',
-
-    // Services
-    serv_badge: 'تخصصاتنا',
-    serv_title: 'رعاية أسنان متميزة',
-    serv_desc: 'حلول شاملة لإتقان ابتسامتك.',
-    serv_card1_title: 'جراحة الفم',
-    serv_card1_desc: 'قلع ضرس العقل، زراعة الأسنان وتطعيم العظام براحة مثالية.',
-    serv_card2_title: 'زراعة الأسنان',
-    serv_card2_desc: 'استبدل أسنانك المفقودة بزراعة متينة وذات مظهر طبيعي.',
-    serv_card3_title: 'تقويم الأسنان',
-    serv_card3_desc: 'محاذاة تجميلية للأسنان للبالغين والأطفال باستخدام تقويم شفاف أو الأقواس الكلاسيكية.',
-    serv_card4_title: 'تجميل الأسنان',
-    serv_card4_desc: 'قشور خزفية (فينير) وتبييض احترافي لإنعاش إشراقة ابتسامتك.',
-    serv_card5_title: 'علاج اللثة',
-    serv_card5_desc: 'علاجات متخصصة للثة لمنع وعلاج تراجع الأسنان.',
-    serv_card6_title: 'علاج العصب',
-    serv_card6_desc: 'علاج دقيق لقنوات الجذور لإنقاذ أسنانك الطبيعية.',
-    
-    // Video Consultation
-    vc_badge: 'ابتكار',
-    vc_title: 'استشارة فيديو عبر الإنترنت',
-    vc_subtitle: 'استشر د. خولة من منزلك. مثالي للحصول على النصائح، المتابعة بعد العلاج، أو الحالات الطارئة البسيطة.',
-    vc_rib_copied: 'تم نسخ رقم الحساب (RIB)!',
-
-    // Urgences
-    urg_badge: 'طوارئ الأسنان',
-    urg_title: 'متاحون خارج أوقات العمل',
-    urg_desc: 'طوارئ الأسنان لا تنذر بقدومها. عيادتنا تضمن لك رعاية سريعة من الاثنين إلى السبت، حتى في المساء.',
-    urg_h_title: 'ساعات العمل العادية',
-    urg_h_desc: 'الاثنين — السبت : 09:00 - 19:30',
-    urg_avail_title: 'طوارئ متاحة',
-    urg_avail_desc: 'بعد الساعة 19:30 حتى 00:00 · كل يوم',
-    urg_contact_title: 'اتصال مباشر',
-    urg_contact_desc: 'عبر الهاتف أو الواتساب لاستجابة فورية',
-    urg_call: 'اتصال',
-
-    // Testimonials
-    testi_badge: 'آراء المرضى',
-    testi_title: 'ماذا يقولون عنا',
-    testi_subtitle: 'اكتشف تجارب مرضانا الذين يثقون بنا من أجل ابتسامتهم',
-
-    // Gallery
-    gal_badge: 'العيادة',
-    gal_title: 'مساحة رعايتك',
-    gal_subtitle: 'اكتشف عيادة الأسنان الحديثة الخاصة بنا والمصممة لراحتك',
-
-    // Before/After
-    ba_badge: 'قبل / بعد',
-    ba_title: 'نتائجنا',
-    ba_subtitle: 'ابتسامات تم تحويلها من قبل فريقنا الخبير',
-
-    // Contact
-    contact_badge: 'اتصل بنا',
-    contact_title: 'احجز موعدا بسهولة',
-    contact_subtitle: 'فريقنا تحت تصرفك للإجابة على أسئلتك ومرافقتك.',
-    contact_info: 'معلومات عملية',
-    contact_address_lbl: 'عنواننا',
-    contact_address: 'الهدى، بجوار صيدلية الأصالة، أكادير',
-    contact_phone_lbl: 'الهاتف والطوارئ',
-    contact_email_lbl: 'البريد الإلكتروني',
-    contact_open_lbl: 'ساعات العمل',
-    contact_book_btn: 'تأكيد الحجز',
-    contact_book_date: 'التاريخ',
-    contact_book_name: 'الاسم الكامل',
-    contact_book_phone: 'الهاتف',
-
-    // Footer
-    footer_desc: 'عيادة أسنان حديثة مخصصة لصحة فمك وأسنانك.',
-    footer_links: 'روابط سريعة',
-    footer_hours: 'ساعات العمل',
-    footer_rights: 'جميع الحقوق محفوظة.',
   }
 };
 
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [lang, setLang] = useState('fr');
-
-  useEffect(() => {
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-    if (lang === 'ar') {
-      document.body.classList.add('rtl-mode');
-    } else {
-      document.body.classList.remove('rtl-mode');
-    }
-  }, [lang]);
-
   const t = (key, fallback = '') => {
-    return translations[lang][key] || fallback || key;
-  };
-
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === 'fr' ? 'ar' : 'fr'));
+    return translations['fr'][key] || fallback || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ lang: 'fr', t }}>
       {children}
     </LanguageContext.Provider>
   );

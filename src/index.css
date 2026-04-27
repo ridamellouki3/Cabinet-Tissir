@@ -1621,6 +1621,39 @@ section {
 }
 
 /* ══════════════════════════════════════
+   FLOATING PHONE BUTTON
+   ══════════════════════════════════════ */
+.floating-phone {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 900;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(45, 55, 72, 0.35);
+  text-decoration: none;
+  transition: var(--transition);
+  animation: phonePulse 2.5s ease-in-out infinite;
+}
+
+.floating-phone:hover {
+  background: var(--accent);
+  transform: scale(1.1);
+  box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4);
+}
+
+@keyframes phonePulse {
+  0%, 100% { box-shadow: 0 8px 24px rgba(45, 55, 72, 0.35); }
+  50%       { box-shadow: 0 8px 32px rgba(45, 55, 72, 0.55), 0 0 0 10px rgba(45, 55, 72, 0.08); }
+}
+
+/* ══════════════════════════════════════
    ANIMATIONS
    ══════════════════════════════════════ */
 @keyframes fadeIn {
@@ -1857,48 +1890,4 @@ section {
   .container {
     width: 92vw;
   }
-}
-
-/* ══════════════════════════════════════
-   RTL MODE (ARABIC)
-   ══════════════════════════════════════ */
-.rtl-mode {
-  font-family: 'Cairo', 'Tajawal', sans-serif;
-  text-align: right;
-  direction: rtl; /* Enforce RTL layout natively */
-}
-
-/* Fix any floating elements or specific margins */
-.rtl-mode .about-feature-icon {
-  margin-right: 0;
-  margin-left: 15px;
-}
-
-.rtl-mode .contact-item-expert,
-.rtl-mode .expert-info-text {
-  text-align: right;
-}
-
-.rtl-mode .hero-buttons {
-  justify-content: flex-start;
-}
-
-.rtl-mode .btn-submit, 
-.rtl-mode .btn-secondary, 
-.rtl-mode .btn-primary {
-  display: inline-flex;
-  gap: 10px;
-}
-
-.rtl-mode .slider-btn {
-  transform: scaleX(-1);
-}
-
-.rtl-mode .wizard-step {
-  flex-direction: column;
-}
-
-.rtl-mode .urgences-feature-icon {
-  margin-right: 0;
-  margin-left: 20px;
 }
